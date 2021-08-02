@@ -1,5 +1,5 @@
 import * as echarts from "echarts";
-let chart1 = function (chartDom) {
+let chart3 = function (chartDom) {
     var myChart = echarts.init(chartDom);
     var option = null;
     var datas = [
@@ -83,4 +83,4 @@ let chart1 = function (chartDom) {
         myChart.setOption(option);
     }
 };
-export default chart1
+export default chart3
