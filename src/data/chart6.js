@@ -1,11 +1,11 @@
 import * as echarts from "echarts";
-let chart3 = function (chartDom) {
+let chart6 = function (chartDom) {
   var myChart = echarts.init(chartDom);
   var option = null;
   var datas = [
     [
-      { name: "无电梯", value: 2.0 },
-      { name: "有电梯", value: 8.0 },
+      { name: "莲塘街道", value: 3.0 },
+      { name: "有电梯", value: 7.0 },
     ],
   ];
 
@@ -26,16 +26,16 @@ let chart3 = function (chartDom) {
       textStyle: {
         color: "#fff",
       },
-      selected: {
-        有电梯: true,
+      formatter: function () {
+        let str = "莲塘街道";
+        return str;
       },
-      data: ["无电梯", "有电梯"],
     },
     series: datas.map(function (data) {
       return {
         type: "pie",
         startAngle: 180, //起始角度
-        radius: [20, 60],
+        radius: [30, 80],
         top: "30%",
         height: "33.33%",
         left: "center",
@@ -45,18 +45,19 @@ let chart3 = function (chartDom) {
             borderWidth: 5,
             borderColor: "#000433",
             color: function (params) {
-              let colors = ["#35f7ff", "#354dff"];
+              let colors = ["#ff2a2a", "#020d6e"];
               return colors[params.dataIndex];
             },
           },
         },
         label: {
-          formatter: "{name|{b}}\n{d} %",
+          show: true,
+          position: "inner",
+          formatter: "{d} %",
           alignTo: "edge",
           minMargin: 5,
-          edgeDistance: 5,
-          color: "#1bb45c",
-          lineHeight: 15,
+          edgeDistance: 10,
+          color: "#fff",
           rich: {
             time: {
               fontSize: 10,
@@ -77,4 +78,4 @@ let chart3 = function (chartDom) {
     myChart.setOption(option);
   }
 };
-export default chart3;
+export default chart6;

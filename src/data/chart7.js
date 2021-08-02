@@ -1,11 +1,12 @@
 import * as echarts from "echarts";
-let chart3 = function (chartDom) {
+let chart7 = function (chartDom) {
   var myChart = echarts.init(chartDom);
   var option = null;
   var datas = [
     [
-      { name: "无电梯", value: 2.0 },
-      { name: "有电梯", value: 8.0 },
+      { name: "楼房", value: 2.0 },
+      { name: "平房", value: 3.5 },
+      { name: "别墅", value: 4.5 },
     ],
   ];
 
@@ -29,40 +30,36 @@ let chart3 = function (chartDom) {
       selected: {
         有电梯: true,
       },
-      data: ["无电梯", "有电梯"],
+      data: ["楼房", "平房", "别墅"],
     },
     series: datas.map(function (data) {
       return {
         type: "pie",
-        startAngle: 180, //起始角度
-        radius: [20, 60],
+        startAngle: 200, //起始角度
+        radius: [35, 80],
         top: "30%",
         height: "33.33%",
         left: "center",
-        width: "70%",
+        width: "90%",
         itemStyle: {
           normal: {
             borderWidth: 5,
             borderColor: "#000433",
             color: function (params) {
-              let colors = ["#35f7ff", "#354dff"];
+              let colors = ["#1573d9", "#ff2a53", "#f79f53"];
               return colors[params.dataIndex];
             },
           },
         },
         label: {
-          formatter: "{name|{b}}\n{d} %",
+          show: true,
+          position: "inner",
+          formatter: "{d} %",
           alignTo: "edge",
           minMargin: 5,
-          edgeDistance: 5,
-          color: "#1bb45c",
+          edgeDistance: 10,
+          color: "#fff",
           lineHeight: 15,
-          rich: {
-            time: {
-              fontSize: 10,
-              colors: ["#268589", "#1bb45c"],
-            },
-          },
         },
         labelLine: {
           length: 15,
@@ -77,4 +74,4 @@ let chart3 = function (chartDom) {
     myChart.setOption(option);
   }
 };
-export default chart3;
+export default chart7;
