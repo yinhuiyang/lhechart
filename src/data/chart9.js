@@ -1,81 +1,87 @@
 import * as echarts from "echarts";
-let chart8 = function (chartDom) {
-    var myChart = echarts.init(chartDom);
+let chart9 = function (chartDom) {
+    var myChart9 = echarts.init(chartDom);
     var option = null;
-    var datas = [
-        [
-            { name: "自用", value: 2.0 },
-            { name: "出租", value: 3.0 },
-            { name: "闲置", value: 5.0 },
-        ],
-    ];
+    var datas = [20, 50, 80, 70, 10];
 
     option = {
-        title: {
-            left: "center",
-            textStyle: {
-                color: "#999",
-                fontWeight: "normal",
-                fontSize: 14,
-            },
+        tooltip: {
+            trigger: 'axis',
+            formatter: '{b} : {c}%'
         },
-        calculable: true,
-        legend: {
-            orient: "vertical",
-            left: "10%",
-            y: "center",
-            textStyle: {
-                color: "#fff",
-            },
-            data: ["自用", "出租", "闲置"],
+        grid: {
+            left: '6%',
+            right: '15%',
+            top: "30%",
+            bottom: '3%',
+            containLabel: true
         },
-        series: datas.map(function (data) {
-            return {
-                type: "pie",
-                startAngle: 180, //起始角度
-                radius: [15, 70],
-                center: ["75%", "50%"],
-                top: "30%",
-                height: "33.33%",
-                left: "center",
-                width: "70%",
-                itemStyle: {
-                    normal: {
-                        borderWidth: 5,
-                        borderColor: "#000433",
-                        color: function (params) {
-                            let colors = ["#f79f4d", "#4435ff", "#05b6bb"];
-                            return colors[params.dataIndex];
-                        },
+        xAxis: {
+            name: '月份',
+            splitLine: {
+                show: true, lineStyle: {
+                    color: ['#2a2e70'],
+                    width: 1
+                }
+            },
+            data: ["一个月以下", "1~3个月", '3~6个月', '6~12个月', '一年以上'],
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#fff',//坐标值得具体的颜色
+                },
+                fontSize: 8
+            }
+        },
+        yAxis: {
+            name: '空置率',
+            type: 'value',
+            min: 0, // 设置y轴刻度的最小值
+            splitLine: { show: false },//去除网格线
+            max: 100,  // 设置y轴刻度的最大值
+            splitNumber: 5,  // 设置y轴刻度间隔个数
+            boundaryGap: false,
+            color: '#fff',
+            axisLabel: {
+                formatter: '{value} %'
+            },
+            axisLine: {
+                onZero: true,
+                lineStyle: {
+                    // 设置y轴颜色
+                    width: 0,
+                    color: '#fff'
+                }
+            }
+        },
+        series: [{
+            barWidth: 15,
+            itemStyle: {
+                normal: {
+                    //好，这里就是重头戏了，定义一个list，然后根据索引取得不同的值，这样就实现了，
+                    color: function (params) {
+                        // build a color map as your need.
+                        var colorList = [
+                            '#de4354', '#08bf76', '#e68e3b', '#0682d8', '#05bfc4'
+                        ];
+                        return colorList[params.dataIndex]
                     },
-                },
-                label: {
-                    show: true,
-                    position: "inner",
-                    formatter: "{d} %",
-                    alignTo: "edge",
-                    minMargin: 5,
-                    edgeDistance: 10,
-                    color: "#fff",
-                    lineHeight: 15,
-                    rich: {
-                        time: {
-                            fontSize: 10,
-                            colors: ["#268589", "#1bb45c"],
-                        },
-                    },
-                },
-                labelLine: {
-                    length: 15,
-                    length2: 0,
-                    maxSurfaceAngle: 80,
-                },
-                data: data,
-            };
-        }),
+                    //以下为是否显示，显示位置和显示格式的设置了
+
+                }
+            },
+
+            data: datas,
+            type: 'bar'
+        }]
     };
+
     if (option && typeof option === "object") {
-        myChart.setOption(option);
+        myChart9.setOption(option);
     }
 };
-export default chart8;
+export default chart9;

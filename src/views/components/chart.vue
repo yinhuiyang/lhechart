@@ -33,6 +33,7 @@
 
 <script>
 import chart1 from "../../data/chart1";
+import chart2 from "../../data/chart2";
 import chart3 from "../../data/chart3";
 // import chart5 from "../../data/chart5";
 import chart6 from "../../data/chart6";
@@ -66,6 +67,7 @@ export default {
   methods: {
     init() {
       var chartDom1 = document.getElementById("chart1");
+      var chartDom2 = document.getElementById("chart2");
       var chartDom3 = document.getElementById("chart3");
       //   var chartDom5 = document.getElementById("chart5");
       var chartDom6 = document.getElementById("chart6");
@@ -74,6 +76,7 @@ export default {
       var chartDom9 = document.getElementById("chart9");
       var chartDom10 = document.getElementById("chart10");
       chart1(chartDom1);
+      chart2(chartDom2);
       chart3(chartDom3);
       //   chart5(chartDom5);
       chart6(chartDom6);
@@ -174,7 +177,9 @@ export default {
 }
 .chart2 {
   height: 296px;
-  background: black;
+  #chart2 {
+    height: 296px;
+  }
 }
 .chart3 {
   #chart3 {
