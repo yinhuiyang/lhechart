@@ -27,7 +27,8 @@
       <i class="b_r_line"></i>
       <i class="r_b_line"></i>
     </div>
-    <div :id="id"></div>
+    <div :id="id" v-if="id !== 'chart5'"></div>
+    <chart5 v-else />
   </div>
 </template>
 
@@ -35,7 +36,7 @@
 import chart1 from "../../data/chart1";
 import chart2 from "../../data/chart2";
 import chart3 from "../../data/chart3";
-// import chart5 from "../../data/chart5";
+import chart5 from "./3Dchart";
 import chart6 from "../../data/chart6";
 import chart7 from "../../data/chart7";
 import chart8 from "../../data/chart8";
@@ -60,6 +61,9 @@ export default {
       type: String,
       default: "",
     },
+  },
+  components: {
+    chart5,
   },
   mounted() {
     this.init();

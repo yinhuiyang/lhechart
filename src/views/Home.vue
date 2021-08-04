@@ -113,13 +113,8 @@
   </div>
 </template>
 <script>
-import chart1 from "../data/chart1";
-import chart3 from "../data/chart3";
-import chart6 from "../data/chart7";
-import chart7 from "../data/chart7";
-import chart8 from "../data/chart8";
-// import * as echarts from "echarts";
 import Chart from "./components/chart.vue";
+
 export default {
   name: "Home",
   components: {
@@ -139,18 +134,7 @@ export default {
     this.init();
   },
   methods: {
-    init() {
-      var chartDom1 = document.getElementById("chart1");
-      var chartDom3 = document.getElementById("chart3");
-      var chartDom6 = document.getElementById("chart6");
-      var chartDom7 = document.getElementById("chart7");
-      var chartDom8 = document.getElementById("chart8");
-      chart1(chartDom1);
-      chart3(chartDom3);
-      chart6(chartDom6);
-      chart7(chartDom7);
-      chart8(chartDom8);
-    },
+    init() {},
   },
 };
 </script>

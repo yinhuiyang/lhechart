@@ -5,12 +5,8 @@ let chart2 = function (chartDom) {
     var datas = [20, 50, 80, 70, 10, 20];
 
     option = {
-        tooltip: {
-            trigger: 'axis',
-            formatter: '{b} : {c}%'
-        },
         grid: {
-            left: '2%',
+            left: '6%',
             right: '20%',
             top: "30%",
             bottom: '3%',
@@ -18,14 +14,15 @@ let chart2 = function (chartDom) {
         },
         xAxis: {
             name: '住房类型',
+            type: 'category',
             splitLine: {
                 show: true, lineStyle: {
                     color: ['#2a2e70'],
                     width: 1
                 }
             },
-            data: ["城中村", "商品住房", '商业', '办公', '厂房', '其他'],
-
+            data: ['城中村', '商品住房', '商业', '办公', '厂房', '其他'],
+            axisTick: { show: false },
             axisLine: {
                 lineStyle: {
                     color: '#fff'
@@ -40,13 +37,10 @@ let chart2 = function (chartDom) {
         },
         yAxis: {
             name: '空置率',
-            type: 'value',
+            boundaryGap: [0, 0.01],
             min: 0, // 设置y轴刻度的最小值
-            splitLine: { show: false },//去除网格线
             max: 100,  // 设置y轴刻度的最大值
-            splitNumber: 5,  // 设置y轴刻度间隔个数
-            boundaryGap: false,
-            color: '#fff',
+            axisTick: { show: false },
             axisLabel: {
                 formatter: '{value} %'
             },
@@ -57,29 +51,53 @@ let chart2 = function (chartDom) {
                     width: 0,
                     color: '#fff'
                 }
-            }
-        },
-        series: [{
-            barWidth: 15,
-            itemStyle: {
-                normal: {
-                    //好，这里就是重头戏了，定义一个list，然后根据索引取得不同的值，这样就实现了，
-                    color: function (params) {
-                        // build a color map as your need.
-                        var colorList = [
-                            '#de4354', '#08bf76', '#e68e3b', '#0682d8', '#05bfc4', '#783edd'
-                        ];
-                        return colorList[params.dataIndex]
-                    },
-                    //以下为是否显示，显示位置和显示格式的设置了
-
-                }
             },
-
-            data: datas,
-            type: 'bar'
-        }]
-    };
+            splitLine: { show: false },//去除网格线
+        },
+        series: [
+            {
+                name: '',
+                type: 'bar',
+                barWidth: 20,
+                barGap: '0%',
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}%',
+                            textStyle: {
+                                color: 'auto'
+                            }
+                        },
+                        color: function (params) {
+                            var colorList = ['#de4354', '#08bf76', '#e68e3b', '#0682d8', '#05bfc4', '#783edd'];
+                            return colorList[params.dataIndex]
+                        }
+                    },
+                },
+                data: datas,
+            },
+            //柱顶圆片
+            {
+                name: '',
+                type: 'pictorialBar',
+                symbolSize: [20, 10],
+                symbolOffset: [0, -5],
+                z: 12,
+                symbolPosition: 'end',
+                itemStyle: {
+                    normal: {
+                        color: function (params) {
+                            var colorList = ['#ffa9b3', '#b0ffdf', '#ffe0c3', '#8fd1ff', '#9dfcff', '#d0b5ff'];
+                            return colorList[params.dataIndex]
+                        }
+                    },
+                },
+                data: datas,
+            },
+        ]
+    }
 
     if (option && typeof option === "object") {
         myChart2.setOption(option);

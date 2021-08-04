@@ -14,38 +14,38 @@ export default {
     return {
       optionData: [
         {
-          name: "林地面积统计",
-          value: 10000,
+          name: "30平方以下",
+          value: 100,
           itemStyle: {
-            color: "#22c4ff",
+            color: "#e46521",
           },
         },
         {
-          name: "草地面积统计",
-          value: 12116,
+          name: "30~60㎡",
+          value: 126,
           itemStyle: {
-            color: "#aaff00",
+            color: "#2f8e9d",
           },
         },
         {
-          name: "耕地地面积统计",
-          value: 12616,
+          name: "60~90㎡",
+          value: 42,
           itemStyle: {
-            color: "#ff00ff",
+            color: "#184499",
           },
         },
         {
-          name: "耕地地面积统计",
-          value: 11616,
+          name: "90~120㎡",
+          value: 116,
           itemStyle: {
-            color: "#ffaadf",
+            color: "#73bdec",
           },
         },
         {
-          name: "耕地地面积统计",
-          value: 16616,
+          name: "120平方以上",
+          value: 166,
           itemStyle: {
-            color: "#ffaa0f",
+            color: "#9ad3f4",
           },
         },
       ],
@@ -68,10 +68,11 @@ export default {
         name: "pie2d",
         type: "pie",
         labelLine: {
+          show: false,
           length: 10,
           length2: 10,
         },
-        startAngle: -20, //起始角度，支持范围[0, 360]。
+        startAngle: 180, //起始角度，支持范围[0, 360]。
         clockwise: false, //饼图的扇区是否是顺时针排布。上述这两项配置主要是为了对齐3d的样式
         radius: ["20%", "50%"],
         center: ["50%", "50%"],
@@ -134,7 +135,13 @@ export default {
 
       // 使用上一次遍历时，计算出的数据和 sumValue，调用 getParametricEquation 函数，
       // 向每个 series-surface 传入不同的参数方程 series-surface.parametricEquation，也就是实现每一个扇形。
-      legendData = [];
+      legendData = [
+        "30平方以下",
+        "30~60㎡",
+        "60~90㎡",
+        "90~120㎡",
+        "120平方以上",
+      ];
       legendBfb = [];
       for (let i = 0; i < series.length; i++) {
         endValue = startValue + series[i].pieData.value;
@@ -150,10 +157,10 @@ export default {
         );
         startValue = endValue;
         let bfb = that.fomatFloat(series[i].pieData.value / sumValue, 4);
-        legendData.push({
-          name: series[i].name,
-          value: bfb,
-        });
+        // legendData.push({
+        //   name: series[i].name,
+        //   value: bfb,
+        // });
         legendBfb.push({
           name: series[i].name,
           value: bfb,
@@ -164,9 +171,10 @@ export default {
       let option = {
         legend: {
           data: legendData,
+          position: "end",
           orient: "horizontal",
           left: 10,
-          top: 10,
+          bottom: 10,
           itemGap: 10,
           textStyle: {
             color: "#A1E2FF",
@@ -175,12 +183,12 @@ export default {
           icon: "circle",
           formatter: function (param) {
             let item = legendBfb.filter((item) => item.name == param)[0];
-            let bfs = that.fomatFloat(item.value * 100, 2) + "%";
-            return `${item.name}  ${bfs}`;
+            // let bfs = that.fomatFloat(item.value * 100, 2) + "%";
+            return `${item.name}`;
           },
         },
         labelLine: {
-          show: true,
+          show: false,
           lineStyle: {
             color: "#7BC0CB",
           },
@@ -237,11 +245,13 @@ export default {
           viewControl: {
             //3d效果可以放大、旋转等，请自己去查看官方配置
             alpha: 40, //角度
-            distance: 300, //调整视角到主体的距离，类似调整zoom
-            rotateSensitivity: 0, //设置为0无法旋转
-            zoomSensitivity: 0, //设置为0无法缩放
+            distance: 220, //调整视角到主体的距离，类似调整zoom
+            rotateSensitivity: 1, //设置为0无法旋转
+            zoomSensitivity: 1, //设置为0无法缩放
             panSensitivity: 0, //设置为0无法平移
             autoRotate: false, //自动旋转
+            projection: "perspective",
+            orthographic: "left",
           },
         },
         series: series,
@@ -349,48 +359,7 @@ export default {
     bindListen(myChart) {
       // 监听鼠标事件，实现饼图选中效果（单选），近似实现高亮（放大）效果。
       let that = this;
-      let selectedIndex = "";
       let hoveredIndex = "";
-      // 监听点击事件，实现选中效果（单选）
-      myChart.on("click", function (params) {
-        // 从 option.series 中读取重新渲染扇形所需的参数，将是否选中取反。
-        let isSelected =
-          !that.option.series[params.seriesIndex].pieStatus.selected;
-        let isHovered =
-          that.option.series[params.seriesIndex].pieStatus.hovered;
-        let k = that.option.series[params.seriesIndex].pieStatus.k;
-        let startRatio =
-          that.option.series[params.seriesIndex].pieData.startRatio;
-        let endRatio = that.option.series[params.seriesIndex].pieData.endRatio;
-        // 如果之前选中过其他扇形，将其取消选中（对 option 更新）
-        if (selectedIndex !== "" && selectedIndex !== params.seriesIndex) {
-          that.option.series[selectedIndex].parametricEquation =
-            that.getParametricEquation(
-              that.option.series[selectedIndex].pieData.startRatio,
-              that.option.series[selectedIndex].pieData.endRatio,
-              false,
-              false,
-              k,
-              that.option.series[selectedIndex].pieData.value
-            );
-          that.option.series[selectedIndex].pieStatus.selected = false;
-        }
-        // 对当前点击的扇形，执行选中/取消选中操作（对 option 更新）
-        that.option.series[params.seriesIndex].parametricEquation =
-          that.getParametricEquation(
-            startRatio,
-            endRatio,
-            isSelected,
-            isHovered,
-            k,
-            that.option.series[params.seriesIndex].pieData.value
-          );
-        that.option.series[params.seriesIndex].pieStatus.selected = isSelected;
-        // 如果本次是选中操作，记录上次选中的扇形对应的系列号 seriesIndex
-        isSelected ? (selectedIndex = params.seriesIndex) : null;
-        // 使用更新后的 option，渲染图表
-        myChart.setOption(that.option);
-      });
       // 监听 mouseover，近似实现高亮（放大）效果
       myChart.on("mouseover", function (params) {
         // 准备重新渲染扇形所需的参数

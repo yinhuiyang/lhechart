@@ -55,6 +55,9 @@ let chart1 = function (chartDom) {
           minMargin: 5,
           edgeDistance: 10,
           color: "#1bb45c",
+          textStyle: {
+            color: 'auto'
+          },
           lineHeight: 15,
           rich: {
             time: {

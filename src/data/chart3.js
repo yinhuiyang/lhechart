@@ -51,12 +51,15 @@ let chart3 = function (chartDom) {
           },
         },
         label: {
-          formatter: "{name|{b}}\n{d} %",
+          formatter: "{d} %",
           alignTo: "edge",
           minMargin: 5,
           edgeDistance: 5,
           color: "#1bb45c",
           lineHeight: 15,
+          textStyle: {
+            color: 'auto'
+          },
           rich: {
             time: {
               fontSize: 10,
