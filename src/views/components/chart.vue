@@ -1,11 +1,7 @@
 <template>
   <div
     :class="id + ' chart mt20'"
-    :style="
-      'background:url(' +
-      imgSrc +
-      ');background-size: cover;background-repeat: no-repeat;'
-    "
+    :style="'background-image:url(' + imgSrc + ');'"
   >
     <div class="chartTitle">
       <span>{{ title }}</span>
@@ -188,14 +184,6 @@ export default {
 .chart3 {
   #chart3 {
     height: 296px;
-  }
-}
-.chart4 {
-  width: 100%;
-  height: 470px;
-  background: rgb(57, 53, 63);
-  span {
-    font-size: 20px;
   }
 }
 

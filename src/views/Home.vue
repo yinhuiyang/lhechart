@@ -41,8 +41,8 @@
           "
         >
           <div class="chartTitle">
-            <span>罗湖区空置率热力图</span>
-            <img src="../assets/title2.png" alt="" />
+            <span class="chart4Title">罗湖区空置率热力图</span>
+            <img class="titlImg" src="../assets/title2.png" alt="" />
           </div>
           <div class="t_line_box">
             <i class="t_l_line"></i>
@@ -60,7 +60,9 @@
             <i class="b_r_line"></i>
             <i class="r_b_line"></i>
           </div>
-          <div id="chart4"></div>
+          <div id="chart4">
+            <Area />
+          </div>
         </div>
         <div class="elseContent">
           <Chart
@@ -114,11 +116,13 @@
 </template>
 <script>
 import Chart from "./components/chart.vue";
+import Area from "./components/area.vue";
 
 export default {
   name: "Home",
   components: {
     Chart,
+    Area,
   },
   data() {
     return {
@@ -185,10 +189,25 @@ export default {
       width: 54%;
       margin: 0 1%;
       float: left;
-      img {
+      .titlImg {
         display: block;
         margin-top: 10px;
         width: 100%;
+      }
+      .chart4 {
+        width: 100%;
+        height: 470px;
+        background: rgb(57, 53, 63);
+        .chart4Title {
+          font-size: 20px;
+        }
+        #chart4 {
+          width: 716px;
+          height: 100%;
+          padding-top: 130px;
+          box-sizing: border-box;
+          margin: 0 auto;
+        }
       }
     }
     .rightContent {

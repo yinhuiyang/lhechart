@@ -36,7 +36,7 @@ export default {
         },
         {
           name: "90~120㎡",
-          value: 116,
+          value: 196,
           itemStyle: {
             color: "#73bdec",
           },
@@ -157,25 +157,23 @@ export default {
         );
         startValue = endValue;
         let bfb = that.fomatFloat(series[i].pieData.value / sumValue, 4);
-        // legendData.push({
-        //   name: series[i].name,
-        //   value: bfb,
-        // });
         legendBfb.push({
           name: series[i].name,
           value: bfb,
         });
       }
-      let boxHeight = this.getHeight3D(series, 26); //通过传参设定3d饼/环的高度，26代表26px
+      let boxHeight = this.getHeight3D(series, 30); //通过传参设定3d饼/环的高度，26代表26px
       // 准备待返回的配置项，把准备好的 legendData、series 传入。
       let option = {
         legend: {
           data: legendData,
           position: "end",
           orient: "horizontal",
-          left: 10,
+          left: 80,
+          right: 100,
           bottom: 10,
-          itemGap: 10,
+          with: "50px",
+          itemGap: 20,
           textStyle: {
             color: "#A1E2FF",
           },
@@ -192,21 +190,6 @@ export default {
           lineStyle: {
             color: "#7BC0CB",
           },
-        },
-        label: {
-          show: true,
-          position: "outside",
-          rich: {
-            b: {
-              color: "#7BC0CB",
-              fontSize: 12,
-              lineHeight: 20,
-            },
-            c: {
-              fontSize: 16,
-            },
-          },
-          formatter: "{b|{b} \n}{c|{c}}{b|  亩}",
         },
         tooltip: {
           formatter: (params) => {
@@ -245,9 +228,9 @@ export default {
           viewControl: {
             //3d效果可以放大、旋转等，请自己去查看官方配置
             alpha: 40, //角度
-            distance: 220, //调整视角到主体的距离，类似调整zoom
+            distance: 3000, //调整视角到主体的距离，类似调整zoom
             rotateSensitivity: 1, //设置为0无法旋转
-            zoomSensitivity: 1, //设置为0无法缩放
+            zoomSensitivity: 0, //设置为0无法缩放
             panSensitivity: 0, //设置为0无法平移
             autoRotate: false, //自动旋转
             projection: "perspective",
@@ -264,7 +247,7 @@ export default {
       series.sort((a, b) => {
         return b.pieData.value - a.pieData.value;
       });
-      return (height * 25) / series[0].pieData.value;
+      return (height * 30) / series[0].pieData.value;
     },
 
     // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
@@ -469,7 +452,7 @@ export default {
   height: 100%;
 }
 .cityGreenLand-charts {
-  height: 200px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
 }
 </style>
