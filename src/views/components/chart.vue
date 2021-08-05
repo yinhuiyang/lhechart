@@ -102,6 +102,9 @@ export default {
     display: inline-block;
     padding-top: 10px;
   }
+  img {
+    width: 100%;
+  }
 }
 .t_line_box {
   position: absolute;

@@ -154,8 +154,9 @@ export default {
   overflow-x: hidden;
   .header {
     background: #000433;
-    height: 80px;
     width: 100%;
+    position: fixed;
+    z-index: 10000;
     img {
       width: 100%;
     }
@@ -163,6 +164,8 @@ export default {
   .title {
     padding-left: 20px;
     background: #000433;
+    padding-top: 101px;
+    z-index: 9999;
     img {
       vertical-align: middle;
       margin-right: 10px;
