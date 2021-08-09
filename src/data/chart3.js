@@ -58,7 +58,7 @@ let chart3 = function (chartDom) {
           color: "#1bb45c",
           lineHeight: 15,
           textStyle: {
-            color: 'auto'
+            color: "auto",
           },
           rich: {
             time: {
