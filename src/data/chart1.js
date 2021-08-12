@@ -1,11 +1,11 @@
 import * as echarts from "echarts";
-let chart1 = function (chartDom) {
+let chart1 = function (chartDom, areaData) {
   var myChart = echarts.init(chartDom);
   var option = null;
   var datas = [
     [
-      { name: "空置", value: 3.7 },
-      { name: "已用", value: 6.3 },
+      { name: "空置", value: areaData / 10 },
+      { name: "已用", value: 10 - areaData / 10 },
     ],
   ];
 

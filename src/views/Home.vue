@@ -5,26 +5,28 @@
     </div>
     <div class="title">
       <img src="../assets/location.png" alt="" />
-      <span>深圳市罗湖区莲塘街道</span>
+      <span>深圳市罗湖区{{ name }}</span>
     </div>
     <div class="content">
       <div class="leftContent">
         <Chart
-          :key="1"
+          :render="render"
+          :areaData="areaData"
+          :key="count + 1"
           :imgSrc="imgSrc"
           :titleImg="titleImg"
           :title="'街道空置率'"
           :id="'chart1'"
         />
         <Chart
-          :key="2"
+          :key="count + 2"
           :imgSrc="imgSrc"
           :titleImg="titleImg"
           :title="'商用类型房屋空置率'"
           :id="'chart2'"
         />
         <Chart
-          :key="3"
+          :key="count + 3"
           :imgSrc="imgSrc"
           :titleImg="titleImg"
           :title="'电梯'"
@@ -66,21 +68,22 @@
         </div>
         <div class="elseContent">
           <Chart
-            :key="5"
+            :key="count + 5"
+            :areaData="areaData"
             :imgSrc="imgSrc1"
             :titleImg="titleImg2"
             :title="'面积'"
             :id="'chart5'"
           />
           <Chart
-            :key="6"
+            :key="count + 6"
             :imgSrc="imgSrc1"
             :titleImg="titleImg2"
-            :title="'深圳市罗湖区莲塘街道'"
+            :title="'深圳市罗湖区' + name"
             :id="'chart6'"
           />
           <Chart
-            :key="7"
+            :key="count + 7"
             :imgSrc="imgSrc1"
             :titleImg="titleImg2"
             :title="'建筑空置率'"
@@ -90,21 +93,21 @@
       </div>
       <div class="rightContent">
         <Chart
-          :key="8"
+          :key="count + 8"
           :imgSrc="imgSrc"
           :titleImg="titleImg1"
           :title="'房屋状态'"
           :id="'chart8'"
         />
         <Chart
-          :key="9"
+          :key="count + 9"
           :imgSrc="imgSrc"
           :titleImg="titleImg"
           :title="'空置时长'"
           :id="'chart9'"
         />
         <Chart
-          :key="10"
+          :key="count + 10"
           :imgSrc="imgSrc"
           :titleImg="titleImg"
           :title="'空置率走势图'"
@@ -117,12 +120,22 @@
 <script>
 import Chart from "./components/chart.vue";
 import Area from "./components/area.vue";
-
+import { getAreaData } from "@/api/home";
+import { mapGetters } from "vuex";
 export default {
   name: "Home",
   components: {
     Chart,
     Area,
+  },
+  computed: {
+    ...mapGetters(["name", "id"]),
+  },
+  watch: {
+    "$store.state.name"(newVal) {
+      this.areaName = newVal;
+      this.init();
+    },
   },
   data() {
     return {
@@ -132,13 +145,32 @@ export default {
       titleImg: require("../assets/title1.png"),
       titleImg1: require("../assets/title2.png"),
       titleImg2: require("../assets/title3.png"),
+      count: 1,
+      render: false,
+      areaData: {},
+      areaName: "莲塘街道",
     };
   },
-  mounted() {
+  beforeMount() {
     this.init();
   },
   methods: {
-    init() {},
+    async init() {
+      let data = {
+        street: this.areaName,
+      };
+      let res = await getAreaData(data);
+      this.render = true;
+      this.count += 100;
+      if (res.code === 1) {
+        this.areaData = res.data;
+      } else {
+        this.$message({
+          message: res.msg,
+          type: "error",
+        });
+      }
+    },
   },
 };
 </script>

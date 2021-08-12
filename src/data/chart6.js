@@ -1,11 +1,11 @@
 import * as echarts from "echarts";
-let chart6 = function (chartDom) {
+let chart6 = function (chartDom, areaData) {
   var myChart = echarts.init(chartDom);
   var option = null;
   var datas = [
     [
-      { name: "莲塘街道", value: 3.0 },
-      { name: "有电梯", value: 7.0 },
+      { name: "", value: areaData / 10 },
+      { name: "其他", value: 10 - areaData / 10 },
     ],
   ];
 
@@ -19,18 +19,6 @@ let chart6 = function (chartDom) {
       },
     },
     calculable: true,
-    legend: {
-      // bottom: 0,
-      top: "85%",
-      left: "center",
-      textStyle: {
-        color: "#fff",
-      },
-      formatter: function () {
-        let str = "莲塘街道";
-        return str;
-      },
-    },
     series: datas.map(function (data) {
       return {
         type: "pie",

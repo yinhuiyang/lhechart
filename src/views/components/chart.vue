@@ -24,7 +24,12 @@
       <i class="r_b_line"></i>
     </div>
     <div :id="id" v-if="id !== 'chart5'"></div>
-    <chart5 v-else />
+    <chart5 :areaData="areaData.mian_ji" v-else />
+    <span
+      class="areaName"
+      v-if="id === 'chart6'"
+      v-text="$store.state.name"
+    ></span>
   </div>
 </template>
 
@@ -41,6 +46,12 @@ import chart10 from "../../data/chart10";
 export default {
   name: "Chart",
   props: {
+    areaData: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
     imgSrc: {
       type: String,
       default: "",
@@ -57,12 +68,21 @@ export default {
       type: String,
       default: "",
     },
+    render: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {};
   },
   components: {
     chart5,
   },
   mounted() {
-    this.init();
+    if (this.render) {
+      this.init();
+    }
   },
   methods: {
     init() {
@@ -75,15 +95,15 @@ export default {
       var chartDom8 = document.getElementById("chart8");
       var chartDom9 = document.getElementById("chart9");
       var chartDom10 = document.getElementById("chart10");
-      chart1(chartDom1);
-      chart2(chartDom2);
-      chart3(chartDom3);
+      chart1(chartDom1, this.areaData.jie_dao_kong_zhi_lv);
+      chart2(chartDom2, this.areaData.shang_yong_lei_xing_fang_wu_kong_zhi_lv);
+      chart3(chartDom3, this.areaData.dian_ti);
       //   chart5(chartDom5);
-      chart6(chartDom6);
-      chart7(chartDom7);
-      chart8(chartDom8);
-      chart9(chartDom9);
-      chart10(chartDom10);
+      chart6(chartDom6, this.areaData.lian_tang_jie_dao);
+      chart7(chartDom7, this.areaData.jian_zhu_kong_zhi_lv);
+      chart8(chartDom8, this.areaData.fang_wu_zhuang_tai);
+      chart9(chartDom9, this.areaData.kong_zhi_shi_chang);
+      chart10(chartDom10, this.areaData.kong_zhi_zou_shi_tu);
     },
   },
 };
@@ -198,11 +218,19 @@ export default {
   }
 }
 .chart6 {
+  position: relative;
   height: 440px;
   width: 32%;
   margin-left: 1%;
   #chart6 {
     height: 440px;
+  }
+  .areaName {
+    position: absolute;
+    color: #fff;
+    bottom: 40px;
+    width: 100%;
+    left: 0;
   }
 }
 .chart7 {

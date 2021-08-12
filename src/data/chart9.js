@@ -1,8 +1,11 @@
 import * as echarts from "echarts";
-let chart9 = function (chartDom) {
+let chart9 = function (chartDom, areaData) {
   var myChart9 = echarts.init(chartDom);
   var option = null;
-  var datas = [20, 50, 80, 70, 10];
+  var ydatas = [];
+  for (let item in areaData) {
+    ydatas.push(areaData[item]);
+  }
 
   option = {
     tooltip: {
@@ -80,7 +83,7 @@ let chart9 = function (chartDom) {
           },
         },
 
-        data: datas,
+        data: ydatas,
         type: "bar",
       },
     ],

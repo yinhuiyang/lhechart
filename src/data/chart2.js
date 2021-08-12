@@ -1,9 +1,13 @@
 import * as echarts from "echarts";
-let chart2 = function (chartDom) {
+let chart2 = function (chartDom, areaData) {
+  // let xdatas = []
+  let ydatas = [];
+  for (let item in areaData) {
+    ydatas.push(areaData[item]);
+    // xdatas.push(item)
+  }
   var myChart2 = echarts.init(chartDom);
   var option = null;
-  var datas = [20, 50, 80, 70, 10, 20];
-
   option = {
     grid: {
       left: "6%",
@@ -22,7 +26,8 @@ let chart2 = function (chartDom) {
           width: 1,
         },
       },
-      data: ["城中村", "商品住房", "商业", "办公", "厂房", "其他"],
+      data: ["城中村", "商品房", "商业", "办公", "厂房", "其他"],
+      // data: xdatas,
       axisTick: { show: false },
       axisLine: {
         lineStyle: {
@@ -84,7 +89,7 @@ let chart2 = function (chartDom) {
             },
           },
         },
-        data: datas,
+        data: ydatas,
       },
       //柱顶圆片
       {
@@ -109,7 +114,7 @@ let chart2 = function (chartDom) {
             },
           },
         },
-        data: datas,
+        data: ydatas,
       },
     ],
   };

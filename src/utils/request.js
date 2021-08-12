@@ -58,7 +58,7 @@ service.interceptors.response.use(
     // console.log(response.headers['content-type'])
     const apifileType = response.headers["content-type"];
     // if the custom code is not 200, it is judged as an error.
-    if (res.code !== 200) {
+    if (res.code !== 1) {
       if (apifileType.includes("excel")) {
         return res;
       } else {

@@ -1,12 +1,12 @@
 import * as echarts from "echarts";
-let chart7 = function (chartDom) {
+let chart7 = function (chartDom, areaData) {
   var myChart = echarts.init(chartDom);
   var option = null;
   var datas = [
     [
-      { name: "楼房", value: 2.0 },
-      { name: "平房", value: 3.5 },
-      { name: "别墅", value: 4.5 },
+      { name: "楼房", value: areaData.lou_fang / 10 },
+      { name: "平房", value: areaData.ping_fang / 10 },
+      { name: "别墅", value: areaData.bie_shu / 10 },
     ],
   ];
 
@@ -16,7 +16,7 @@ let chart7 = function (chartDom) {
       textStyle: {
         color: "#999",
         fontWeight: "normal",
-        fontSize: 14,
+        fontSize: 12,
       },
     },
     calculable: true,

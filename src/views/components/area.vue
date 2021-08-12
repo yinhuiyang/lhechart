@@ -1,68 +1,68 @@
 <template>
   <div class="areaChart">
     <div class="area area1" :id="!showOpa1 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(1, 'a11')">
+      <div class="innerDiv" @click="changeImg(1, 'a11', '清水河街道')">
         <img :src="img1" alt="" />
         <span class="areaName">清水河街道</span>
       </div>
     </div>
     <div class="area area2" :id="!showOpa2 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(2, 'a22')">
+      <div class="innerDiv" @click="changeImg(2, 'a22', '东晓街道')">
         <img :src="img2" alt="" />
         <span class="areaName">东晓街道</span>
       </div>
     </div>
     <div class="area area3" :id="!showOpa3 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(3, 'a33')">
+      <div class="innerDiv" @click="changeImg(3, 'a33', '东湖街道')">
         <img :src="img3" alt="" />
         <span class="areaName">东湖街道</span>
       </div>
     </div>
 
     <div class="area area4" :id="!showOpa4 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(4, 'a44')">
+      <div class="innerDiv" @click="changeImg(4, 'a44', '笋岗街道')">
         <img :src="img4" alt="" />
         <span class="areaName">笋岗街道</span>
       </div>
     </div>
 
     <div class="area area5" :id="!showOpa5 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(5, 'a55')">
+      <div class="innerDiv" @click="changeImg(5, 'a55', '翠竹街道')">
         <img :src="img5" alt="" />
         <span class="areaName">翠竹街道</span>
       </div>
     </div>
 
     <div class="area area6" :id="!showOpa6 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(6, 'a66')">
+      <div class="innerDiv" @click="changeImg(6, 'a66', '黄贝街道')">
         <img :src="img6" alt="" />
         <span class="areaName">黄贝街道</span>
       </div>
     </div>
 
     <div class="area area7" :id="!showOpa7 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(7, 'a77')">
+      <div class="innerDiv" @click="changeImg(7, 'a77', '莲塘街道')">
         <img :src="img7" alt="" />
         <span class="areaName">莲塘街道</span>
       </div>
     </div>
 
     <div class="area area8" :id="!showOpa8 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(8, 'a88')">
+      <div class="innerDiv" @click="changeImg(8, 'a88', '桂园街道')">
         <img :src="img8" alt="" />
         <span class="areaName">桂园街道</span>
       </div>
     </div>
 
     <div class="area area9" :id="!showOpa9 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(9, 'a99')">
+      <div class="innerDiv" @click="changeImg(9, 'a99', '东门街道')">
         <img :src="img9" alt="" />
         <span class="areaName">东门街道</span>
       </div>
     </div>
 
     <div class="area area10" :id="!showOpa10 ? 'opa' : ''">
-      <div class="innerDiv" @click="changeImg(10, 'a1010')">
+      <div class="innerDiv" @click="changeImg(10, 'a1010', '南湖街道')">
         <img :src="img10" alt="" />
         <span class="areaName">南湖街道</span>
       </div>
@@ -97,16 +97,17 @@ export default {
     };
   },
   methods: {
-    changeImg(type, name) {
+    changeImg(type, ImgName, areaName) {
       for (let i = 1; i < 11; i++) {
         if (i !== type) {
           this["showOpa" + i] = false;
           this["img" + i] = require("../../assets/a" + i + ".png");
         } else {
-          this["img" + i] = require("../../assets/" + name + ".png");
+          this["img" + i] = require("../../assets/" + ImgName + ".png");
           this["showOpa" + i] = true;
         }
       }
+      this.$store.commit("setName", areaName);
     },
   },
 };

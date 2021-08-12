@@ -34,13 +34,10 @@ module.exports = {
       errors: true,
     },
     proxy: {
-      "/dev-api/sunflower": {
-        target: "http://dev.hzppd.com:28910",
+      "/api": {
+        target: "http://web.qifudaren.net",
         ws: true,
         changeOrigin: true,
-        pathRewrite: {
-          "^/dev-api/sunflower": "/sunflower", // 重定向代理的路径
-        },
       },
     },
   },

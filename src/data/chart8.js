@@ -1,12 +1,12 @@
 import * as echarts from "echarts";
-let chart8 = function (chartDom) {
+let chart8 = function (chartDom, areaData) {
   var myChart = echarts.init(chartDom);
   var option = null;
   var datas = [
     [
-      { name: "自用", value: 2.0 },
-      { name: "出租", value: 3.0 },
-      { name: "闲置", value: 5.0 },
+      { name: "自用", value: areaData.zi_yong / 10 },
+      { name: "出租", value: areaData.chu_zu / 10 },
+      { name: "闲置", value: areaData.xian_zhi / 10 },
     ],
   ];
 

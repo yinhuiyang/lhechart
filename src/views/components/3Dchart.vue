@@ -10,6 +10,14 @@ import "echarts-gl";
 export default {
   name: "cityGreenLand",
   components: {},
+  props: {
+    areaData: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
+  },
   data() {
     return {
       optionData: [
@@ -55,8 +63,48 @@ export default {
     this.init();
   },
   methods: {
+    getData() {
+      for (let data in this.areaData) {
+        switch (data) {
+          case "<30":
+            this.optionData[0].value = this.areaData[data];
+            break;
+          case "30-60":
+            this.optionData[1].value = this.areaData[data];
+            break;
+          case "60-90":
+            this.optionData[2].value = this.areaData[data];
+            break;
+          case "90-120":
+            this.optionData[3].value = this.areaData[data];
+            break;
+          case ">120":
+            this.optionData[4].value = this.areaData[data];
+            break;
+        }
+      }
+    },
     init() {
       //构建3d饼状图
+      for (let data in this.areaData) {
+        switch (data) {
+          case "<30":
+            this.optionData[0].value = this.areaData[data];
+            break;
+          case "30-60":
+            this.optionData[1].value = this.areaData[data];
+            break;
+          case "60-90":
+            this.optionData[2].value = this.areaData[data];
+            break;
+          case "90-120":
+            this.optionData[3].value = this.areaData[data];
+            break;
+          case ">120":
+            this.optionData[4].value = this.areaData[data];
+            break;
+        }
+      }
       let myChart = echarts.init(
         document.getElementById("cityGreenLand-charts")
       );
@@ -230,7 +278,7 @@ export default {
             alpha: 40, //角度
             distance: 3000, //调整视角到主体的距离，类似调整zoom
             rotateSensitivity: 1, //设置为0无法旋转
-            zoomSensitivity: 0, //设置为0无法缩放
+            zoomSensitivity: 0, //设置为0无法缩放ff2a2a
             panSensitivity: 0, //设置为0无法平移
             autoRotate: false, //自动旋转
             projection: "perspective",

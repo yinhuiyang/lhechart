@@ -1,8 +1,12 @@
 import * as echarts from "echarts";
-let chart10 = function (chartDom) {
+let chart10 = function (chartDom, areaData) {
   var myChart = echarts.init(chartDom);
   var option = null;
-  var datas = [14, 34, 56, 56, 32, 67, 89, 44, 23, 63, 76, 23];
+  var ydatas = [];
+  for (let item in areaData) {
+    ydatas.push(areaData[item]);
+  }
+
   option = {
     //x轴
     tooltip: {
@@ -70,7 +74,7 @@ let chart10 = function (chartDom) {
           shadowBlur: 3,
           shadowOffsetY: 20,
         },
-        data: datas,
+        data: ydatas,
       },
     ],
   };

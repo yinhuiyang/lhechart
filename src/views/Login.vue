@@ -11,6 +11,7 @@
             </template>
           </el-input>
           <el-input
+            type="password"
             placeholder="请输入用户密码"
             v-model="password"
             class="mt50"
@@ -39,11 +40,6 @@ export default {
   },
   methods: {
     async login() {
-      setToken("lh");
-      this.$router.push({
-        path: "/home",
-      });
-      return;
       if (!this.userName || !this.password) {
         this.$message({
           message: "登录信息请填写完整",
@@ -51,11 +47,12 @@ export default {
         });
       } else {
         let data = {
-          userName: this.userName,
-          password: this.password,
+          name: this.userName,
+          pwd: this.password,
         };
         let res = await login(data);
-        if (res.code === 200) {
+        if (res.code === 1) {
+          setToken(res.data.id);
           this.$router.push({
             path: "/home",
           });
@@ -138,6 +135,9 @@ export default {
   }
   .el-input__inner:focus {
     border-color: #00f7ff;
+  }
+  input:-internal-autofill-selected {
+    background-color: transparent !important;
   }
 }
 </style>
